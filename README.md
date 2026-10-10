@@ -4,9 +4,9 @@
 [![Insightful Pipe](https://img.shields.io/badge/Insightful_Pipe-MCP_Servers-purple)](https://insightfulpipe.com/mcp-servers)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-> **Connect YouTube Analytics to AI assistants with MCP.**
+> **Connect YouTube to AI assistants with MCP: channel analytics plus videos, playlists and comment replies.**
 
-Part of the [Insightful Pipe MCP Server Collection](https://insightfulpipe.com/mcp-servers) — The YouTube MCP server brings YouTube Analytics reports to Claude, ChatGPT, Cursor, and other AI assistants to analyze your channel performance, video metrics, and audience insights.
+Part of the [Insightful Pipe MCP Server Collection](https://insightfulpipe.com/mcp-servers) — The YouTube MCP server brings YouTube Analytics reports and the YouTube Data API to Claude, ChatGPT, Cursor, and other AI assistants to analyze your channel performance, video metrics, and audience insights. On Read & Write connections your assistant can also upload videos, update video details, manage playlists, and reply to and edit comments.
 
 [![Explore All MCP Servers](https://img.shields.io/badge/Explore_All-MCP_Servers-blue?style=for-the-badge)](https://insightfulpipe.com/mcp-servers)
 
@@ -26,6 +26,7 @@ YouTube MCP is a **remote Model Context Protocol server** that provides AI assis
 - Analyze channel growth and subscriber trends
 - Get AI-powered content recommendations
 - Monitor watch time, views, and engagement
+- Upload videos, manage playlists, and reply to comments on Read & Write connections
 
 ## Installation
 
@@ -71,9 +72,12 @@ When Cursor shows **Needs authentication**, click **Connect** and sign in to Ins
 
 ## Available Actions
 
-21 actions: 21 read, 0 write.
+43 actions: 34 read, 9 write.
 
-### Read Actions (21)
+### Read Actions (34)
+
+<details>
+<summary>Show all 34 read actions</summary>
 
 | Action | Description |
 |--------|-------------|
@@ -89,6 +93,19 @@ When Cursor shows **Needs authentication**, click **Connect** and sign in to Ins
 | `channel_sharing_service` | Channel metrics by sharing service |
 | `channel_traffic_source` | Traffic source metrics (override dimensions for detailed sources) |
 | `demographics` | Audience demographics data including age groups and gender breakdown |
+| `get_activities` | Lists channel activity events (uploads, likes, favorites, comments, subscriptions) |
+| `get_channels` | Get channel information, statistics, and content details |
+| `get_channels_topvideos` | Get the most-viewed videos from a specific channel |
+| `get_comments` | Get individual comments |
+| `get_commentthreads` | Get all comment threads (top-level comments and replies) for a video or channel |
+| `get_playlistitems` | Get items within a playlist |
+| `get_playlists` | List playlists by channel ID or playlist IDs |
+| `get_search` | Search for YouTube videos, channels, and playlists |
+| `get_subscriptions` | List subscriptions and subscribers |
+| `get_videoabusereportreasons` | Get video abuse report reasons |
+| `get_videocategories` | Get video categories for a region |
+| `get_videos` | Get video details, statistics, and content information |
+| `get_videos_trending` | Get trending/popular videos by region and category |
 | `playlist_basic` | Playlist metrics (supply filters/dimensions to target playlists) |
 | `playlist_combined` | Combined playlist metrics |
 | `playlist_device_os` | Playlist metrics by device/OS (override dimensions) |
@@ -98,6 +115,22 @@ When Cursor shows **Needs authentication**, click **Connect** and sign in to Ins
 | `reports.query` | Custom YouTube Analytics reports query - specify metrics, dimensions, and filters |
 | `traffic_sources` | Traffic source data showing where viewers discover your content |
 | `video` | Video-level performance metrics including views, watch time, and engagement |
+
+</details>
+
+### Write Actions (9)
+
+| Action | Description |
+|--------|-------------|
+| `delete_comment` | Delete a comment |
+| `insert_comment` | Reply to an existing comment (creates replies, not top-level comments) |
+| `insert_playlist` | Create a new playlist |
+| `insert_playlistitem` | Add a video to a playlist |
+| `update_comment` | Update comment text |
+| `update_playlist` | Update playlist metadata |
+| `update_playlistitem` | Update a playlist item (position, notes) |
+| `update_video` | Update video metadata (title, description, tags, privacy) |
+| `upload_video` | Upload and publish a video to the channel (videos.insert, resumable upload) |
 
 ## Control What Your AI Can Do
 
@@ -153,7 +186,7 @@ You decide what AI agents can do with each connected account:
 ## Security & Privacy
 
 - **Google OAuth 2.0** - Secure YouTube authentication
-- **Read-only reports** - No changes to your channel
+- **Read-only connections available** - Connect Read-only and nothing on your channel can change
 - **Official YouTube API** - Direct integration with Google's API
 - **Data encryption** - Secure data handling
 
